@@ -4,7 +4,6 @@ import com.hypeng.example.boardgamebuddy.dto.Answer;
 import com.hypeng.example.boardgamebuddy.dto.Question;
 import com.hypeng.example.boardgamebuddy.service.BoardGameService;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -26,17 +25,18 @@ public class SpringAiBoardGameService implements BoardGameService {
 
     @Override
     public Answer askQuestion(Question question) {
-        var gameRules = gameRulesService.getRulesFor(question.gameTitle());
+//        var gameRules = gameRulesService.getRulesFor(question.gameTitle());
 
-        var answerText = chatClient.prompt()
+        return chatClient.prompt()
                 .system(userSpec -> userSpec
                         .text(promptTemplate)
-                        .param("gameTitle", question.gameTitle())
-                        .param("rules", gameRules))
+                        .param("gameTitle", question.gameTitle()))
+//                        .param("rules", gameRules))
                 .user(question.question())
                 .call()
-                .content();
-
-        return new Answer(question.gameTitle(), answerText);
+                .entity(Answer.class);
+//Rather than call the content() method, the entity() method is called,
+// passing in Answer.class to specify what the type of the response should be.
+//        return new Answer(question.gameTitle(), answerText);
     }
 }

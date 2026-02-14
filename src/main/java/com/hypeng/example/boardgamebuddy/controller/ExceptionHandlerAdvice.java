@@ -7,24 +7,22 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
-
-@RestControllerAdvice     
+@RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)  
-  public ProblemDetail handleValidationExceptions(
-                              MethodArgumentNotValidException ex) {
-    var problemDetail =  ProblemDetail
-        .forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation failed");
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ProblemDetail handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        var problemDetail = ProblemDetail
+                .forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation failed");
 
-    var validationMessages = ex.getBindingResult().getAllErrors()
-        .stream()
-        .map(MessageSourceResolvable::getDefaultMessage)
-        .toList();
+        var validationMessages = ex.getBindingResult().getAllErrors()
+                .stream()
+                .map(MessageSourceResolvable::getDefaultMessage)
+                .toList();
 
-    problemDetail.setProperty("validationErrors", validationMessages); 
-    return problemDetail;
-  }
+        problemDetail.setProperty("validationErrors", validationMessages);
+        return problemDetail;
+    }
 
 }

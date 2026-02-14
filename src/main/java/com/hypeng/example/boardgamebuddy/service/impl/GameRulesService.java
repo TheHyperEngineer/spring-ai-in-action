@@ -11,22 +11,22 @@ import java.nio.charset.Charset;
 @Service
 public class GameRulesService {
 
-  private static final Logger LOG =
-      LoggerFactory.getLogger(GameRulesService.class);
+    private static final Logger LOG =
+            LoggerFactory.getLogger(GameRulesService.class);
 
-  public String getRulesFor(String gameName) {
-    try {
-      var filename = String.format(
-          "classpath:/gameRules/%s.txt",
-          gameName.toLowerCase().replace(" ", "_")); 
+    public String getRulesFor(String gameName) {
+        try {
+            var filename = String.format(
+                    "classpath:/gameRules/%s.txt",
+                    gameName.toLowerCase().replace(" ", "_"));
 
-      return new DefaultResourceLoader()
-          .getResource(filename)
-          .getContentAsString(Charset.defaultCharset()); 
-    } catch (IOException e) {
-      LOG.info("No rules found for game: " + gameName);
-      return "";                                            
+            return new DefaultResourceLoader()
+                    .getResource(filename)
+                    .getContentAsString(Charset.defaultCharset());
+        } catch (IOException e) {
+            LOG.info("No rules found for game: " + gameName);
+            return "";
+        }
     }
-  }
 
 }
