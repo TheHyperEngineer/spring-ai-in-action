@@ -15,8 +15,8 @@ public class SpringAiBoardGameService implements BoardGameService {
     private final ChatClient chatClient;
     private final GameRulesService gameRulesService;
 
-    @Value("classpath:/promptTemplates/questionPromptTemplate.st")
-    private Resource questionPromptTemplate;
+    @Value("classpath:/promptTemplates/systemPromptTemplate.st")
+    private Resource promptTemplate;
 
     public SpringAiBoardGameService(ChatClient.Builder chatClientBuilder,
                                     GameRulesService gameRulesService) {
@@ -29,12 +29,11 @@ public class SpringAiBoardGameService implements BoardGameService {
         var gameRules = gameRulesService.getRulesFor(question.gameTitle());
 
         var answerText = chatClient.prompt()
-                .user(userSpec -> userSpec
-                        .text(questionPromptTemplate)
+                .system(userSpec -> userSpec
+                        .text(promptTemplate)
                         .param("gameTitle", question.gameTitle())
-                        .param("question", question.question())
                         .param("rules", gameRules))
-                .advisors(new SimpleLoggerAdvisor())
+                .user(question.question())
                 .call()
                 .content();
 
