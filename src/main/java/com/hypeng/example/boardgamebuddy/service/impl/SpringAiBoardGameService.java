@@ -6,9 +6,8 @@ import com.hypeng.example.boardgamebuddy.service.BoardGameService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
-//@Service
-public class SpringAiBoardGameService {
-//    public class SpringAiBoardGameService implements BoardGameService {
+@Service
+public class SpringAiBoardGameService implements BoardGameService {
 
     private final ChatClient chatClient;
 
@@ -16,13 +15,15 @@ public class SpringAiBoardGameService {
         this.chatClient = chatClientBuilder.build();
     }
 
-//    @Override
+    @Override
     public Answer askQuestion(Question question) {
-        var answerText = chatClient.prompt()
-                .user(question.question())
+        String prompt = "Answer this question about " +question.gameTitle() + ": " + question.question();
+
+        String answerText = chatClient.prompt()
+                .user(prompt)
                 .call()
                 .content();
 
-        return new Answer(answerText);
+        return new Answer(question.gameTitle(), answerText);
     }
 }
