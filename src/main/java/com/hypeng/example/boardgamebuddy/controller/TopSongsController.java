@@ -28,6 +28,7 @@ public class TopSongsController {
                         .text(topSongPromptTemplate)
                         .param("year", year))
                 .call()
-                .entity(new ParameterizedTypeReference<List<String>>() {});
+                .entity(new ParameterizedTypeReference<List<String>>() {
+                });
     }
 }

@@ -1,8 +1,8 @@
 package com.hypeng.example.boardgamebuddy.service;
 
-import com.hypeng.example.boardgamebuddy.dto.Answer;
 import com.hypeng.example.boardgamebuddy.dto.Question;
+import reactor.core.publisher.Flux;
 
 public interface BoardGameService {
-    Answer askQuestion(Question question);
+    Flux<String> askQuestion(Question question);
 }
