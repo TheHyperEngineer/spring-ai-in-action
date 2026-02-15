@@ -7,6 +7,14 @@ spring:
       chat:
         options:
           model: gpt-5-nano
+      embedding:
+        options:
+          model: text-embedding-3-small
+    vectostore:
+      simple:
+        store:
+          path: ./vectorstore.json
+          collection-name: board-game-collection
 
 springdoc:
   swagger-ui:
@@ -23,3 +31,10 @@ logging:
 logbook:
   format:
     style: http
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,env
+

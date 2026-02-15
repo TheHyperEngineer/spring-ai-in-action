@@ -17,7 +17,7 @@ public class AskController {
         this.boardGameService = boardGameService;
     }
 
-    @PostMapping(path = "/ask", produces = "application/ndjson")
+    @PostMapping(path = "/ask", produces = "application/json")
     public Answer ask(@RequestBody @Valid Question question) {
         return boardGameService.askQuestion(question);
     }
