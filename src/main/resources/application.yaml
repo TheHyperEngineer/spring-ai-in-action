@@ -1,6 +1,13 @@
+server:
+    port: 8081
 spring:
   application:
     name: board-game-buddy
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:aichatdb}
+    username: ${DB_USERNAME:user}
+    password: ${DB_PASSWORD:secret}
+    driver-class-name: org.postgresql.Driver
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
@@ -10,6 +17,11 @@ spring:
       embedding:
         options:
           model: text-embedding-3-small
+    chat:
+      memory:
+        repository:
+          jdbc:
+            initialize-schema: ALWAYS
     vectorstore:
       qdrant:
         host: ${QDRANT_HOST:localhost}
@@ -34,6 +46,10 @@ logging:
     org:
       zalando:
         logbook: TRACE
+      springframework:
+        web: DEBUG
+        jdbc: DEBUG
+        ai: DEBUG
 logbook:
   format:
     style: http
