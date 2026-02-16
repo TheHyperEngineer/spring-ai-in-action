@@ -2,6 +2,7 @@ package com.hypeng.example.boardgamebuddy.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
+import org.springframework.ai.rag.preretrieval.query.expansion.MultiQueryExpander;
 import org.springframework.ai.rag.preretrieval.query.transformation.RewriteQueryTransformer;
 import org.springframework.ai.rag.preretrieval.query.transformation.TranslationQueryTransformer;
 import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
@@ -28,7 +29,13 @@ public class AiConfig {
                         VectorStoreDocumentRetriever.builder()
                                 .vectorStore(vectorStore)
                                 .build())
-                .queryTransformers(List.of(
+                .queryExpander(
+                        MultiQueryExpander.builder()
+                                .chatClientBuilder(cleanBuilder)
+                                .numberOfQueries(5)
+                                .includeOriginal(false)
+                                .build())
+               /* .queryTransformers(List.of(
                         RewriteQueryTransformer.builder()
                                 // Use the clean builder here!
                                 .chatClientBuilder(cleanBuilder)
@@ -38,7 +45,7 @@ public class AiConfig {
                                 .chatClientBuilder(cleanBuilder)
                                 .targetLanguage("English")
                                 .build()
-                ))
+                ))*/
                 .build();
 
         // 2. This is the "Primary" client used by your Service
