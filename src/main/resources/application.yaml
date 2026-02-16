@@ -1,7 +1,7 @@
 # Application configuration for Board Game Buddy
 spring:
   application:
-    name: simple-tool-function
+    name: board-game-buddy
 
   # Configurations for OpenAI integration
   ai:
@@ -10,6 +10,10 @@ spring:
       chat:
         options:
           model: gpt-5-nano
+    vectorstore:
+      qdrant:
+        initialize-schema: true
+        collection-name: board-game-buddy
 
 # Configurations for Springdoc OpenAPI
 springdoc:

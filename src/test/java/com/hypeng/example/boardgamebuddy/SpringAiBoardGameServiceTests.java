@@ -1,0 +1,48 @@
+package com.hypeng.example.boardgamebuddy;
+
+//@Testcontainers
+//@SpringBootTest(properties = "spring.ai.vectorstore.qdrant.initialize-schema=true")
+public class SpringAiBoardGameServiceTests {
+
+//  @Container
+ /* @ServiceConnection
+  static QdrantContainer qdrant = new QdrantContainer("qdrant/qdrant:latest");
+
+  @Autowired
+  private BoardGameService boardGameService;
+
+  @Autowired
+  private ChatClient.Builder chatClientBuilder;
+
+  @Autowired
+  VectorStore vectorStore;
+
+  @BeforeEach
+  public void addTestDocs() {
+    var document = Document.builder()
+        .text("There are 24 pieces in checkers, 12 for each player.")
+        .metadata("gameTitle", "checkers")
+        .build();
+    vectorStore.add(List.of(document));
+  }
+
+  @Test
+  public void evaluateRelevancy() {
+    var userText = "How many pieces are there?";
+    var game = "Checkers";
+    var question = new Question(game, userText);
+    var answer = boardGameService.askQuestion(question, "conversationId");
+    var relevancyEvaluator = new RelevancyEvaluator(chatClientBuilder);
+    var response = relevancyEvaluator.evaluate(new EvaluationRequest(userText, List.of(), answer.answer()));
+    Assertions.assertThat(response.isPass())
+        .withFailMessage("""
+          ========================================
+          The answer "%s"
+          is not considered relevant to the question
+          "%s".
+          ========================================
+          """, answer.answer(), userText)
+        .isTrue();
+  }*/
+
+}
