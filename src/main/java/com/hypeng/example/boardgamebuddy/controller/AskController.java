@@ -20,7 +20,7 @@ public class AskController {
 
     @PostMapping(path = "/ask", produces = "application/json")
     public Answer ask(
-            @RequestHeader(name="X_AI_CONVERSATION_ID",
+            @RequestHeader(name="CONVERSATION_ID",
                     defaultValue = "default") String conversationId,
             @RequestBody @Valid Question question) {
         return boardGameService.askQuestion(question, conversationId);
