@@ -3,11 +3,6 @@ server:
 spring:
   application:
     name: board-game-buddy
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:aichatdb}
-    username: ${DB_USERNAME:user}
-    password: ${DB_PASSWORD:secret}
-    driver-class-name: org.postgresql.Driver
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
@@ -17,18 +12,12 @@ spring:
       embedding:
         options:
           model: text-embedding-3-small
-    chat:
-      memory:
-        repository:
-          jdbc:
-            initialize-schema: ALWAYS
     vectorstore:
       qdrant:
         host: ${QDRANT_HOST:localhost}
         port: ${QDRANT_GRPC_PORT:6334}     # gRPC port (default 6334)
         initialize-schema: true
         collection-name: board-game-buddy
-        check-collection-exists: true
         check-compatibility: false
   servlet:
     multipart:
