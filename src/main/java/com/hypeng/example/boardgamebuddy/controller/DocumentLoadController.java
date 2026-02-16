@@ -65,7 +65,12 @@ public class DocumentLoadController {
             List<Document> documents = documentReader.get();
 
             // 3. Split into chunks
-            TextSplitter textSplitter = TokenTextSplitter.builder().build();
+//            TextSplitter textSplitter = TokenTextSplitter.builder().build();
+            TextSplitter textSplitter = TokenTextSplitter.builder()
+                    .withChunkSize(500)
+                    .withKeepSeparator(false)
+                    .withMinChunkLengthToEmbed(10)
+                    .build();
             List<Document> splitDocuments = textSplitter.apply(documents);
 
             // 4. Determine and Normalize Game Title

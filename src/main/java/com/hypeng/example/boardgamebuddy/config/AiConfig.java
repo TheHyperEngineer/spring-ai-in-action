@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class AiConfig {
 
     @Bean
-    ChatClient chatClient(
+    public ChatClient chatClient(
             ChatClient.Builder chatClientBuilder, VectorStore vectorStore) {
         var advisor = RetrievalAugmentationAdvisor.builder()
                 .documentRetriever(
