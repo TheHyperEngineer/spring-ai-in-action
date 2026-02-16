@@ -1,35 +1,24 @@
-server:
-    port: 8081
+# Application configuration for Board Game Buddy
 spring:
   application:
-    name: board-game-buddy
+    name: simple-tool-function
+
+  # Configurations for OpenAI integration
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
         options:
           model: gpt-5-nano
-      embedding:
-        options:
-          model: text-embedding-3-small
-    vectorstore:
-      qdrant:
-        host: ${QDRANT_HOST:localhost}
-        port: ${QDRANT_GRPC_PORT:6334}     # gRPC port (default 6334)
-        initialize-schema: true
-        collection-name: board-game-buddy
-        check-compatibility: false
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
 
+# Configurations for Springdoc OpenAPI
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
   api-docs:
     enabled: true
 
+# Logging configuration for detailed output from Logbook and Spring components
 logging:
   level:
     org:
@@ -39,10 +28,13 @@ logging:
         web: DEBUG
         jdbc: DEBUG
         ai: DEBUG
+
+# Logbook configuration for HTTP request and response logging
 logbook:
   format:
     style: http
 
+# Actuator configuration to expose health, info, metrics, loggers, and environment endpoints for monitoring and diagnostics
 management:
   endpoints:
     web:
