@@ -10,18 +10,24 @@ spring:
       embedding:
         options:
           model: text-embedding-3-small
-    vectostore:
-      simple:
-        store:
-          path: ./vectorstore.json
-          collection-name: board-game-collection
+    vectorstore:
+      qdrant:
+        host: ${QDRANT_HOST:localhost}
+        port: ${QDRANT_GRPC_PORT:6334}     # gRPC port (default 6334)
+        initialize-schema: true
+        collection-name: board-game-buddy
+        check-collection-exists: true
+        check-compatibility: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
   api-docs:
     enabled: true
-
 
 logging:
   level:

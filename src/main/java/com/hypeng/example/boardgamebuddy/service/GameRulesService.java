@@ -1,7 +1,5 @@
 package com.hypeng.example.boardgamebuddy.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -10,11 +8,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+import static com.hypeng.example.boardgamebuddy.utils.UtilityService.normalizeGameTitle;
+
 @Service
 public class GameRulesService {
-
-    private static final Logger LOG =
-            LoggerFactory.getLogger(GameRulesService.class);
 
     private final VectorStore vectorStore;
 
@@ -44,9 +41,4 @@ public class GameRulesService {
                 .map(Document::getText)
                 .collect(Collectors.joining(System.lineSeparator()));
     }
-
-    private String normalizeGameTitle(String gameTitle) {
-        return gameTitle.toLowerCase().replace(" ", "_");
-    }
-
 }
