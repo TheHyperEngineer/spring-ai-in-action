@@ -9,12 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
+import org.springframework.context.annotation.Description;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
-public class GameTools {
+@Description("Fetches the complexity of a game.")
+public class GameTools implements Function<GameComplexityRequest, GameComplexityResponse>  {
 
   private final GameRepository gameRepository;
 
