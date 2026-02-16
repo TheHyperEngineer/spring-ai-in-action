@@ -4,5 +4,6 @@ import com.hypeng.example.boardgamebuddy.dto.Answer;
 import com.hypeng.example.boardgamebuddy.dto.Question;
 
 public interface BoardGameService {
-    Answer askQuestion(Question question);
+    Answer askQuestion(Question question, String conversationId);
 }
+

@@ -6,6 +6,7 @@ import com.hypeng.example.boardgamebuddy.service.BoardGameService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,8 +19,11 @@ public class AskController {
     }
 
     @PostMapping(path = "/ask", produces = "application/json")
-    public Answer ask(@RequestBody @Valid Question question) {
-        return boardGameService.askQuestion(question);
+    public Answer ask(
+            @RequestHeader(name="X_AI_CONVERSATION_ID",
+                    defaultValue = "default") String conversationId,
+            @RequestBody @Valid Question question) {
+        return boardGameService.askQuestion(question, conversationId);
     }
 
 

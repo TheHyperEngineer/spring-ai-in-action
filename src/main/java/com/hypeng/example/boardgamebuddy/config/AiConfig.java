@@ -1,21 +1,18 @@
 package com.hypeng.example.boardgamebuddy.config;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
-import org.springframework.ai.rag.preretrieval.query.expansion.MultiQueryExpander;
-import org.springframework.ai.rag.preretrieval.query.transformation.RewriteQueryTransformer;
-import org.springframework.ai.rag.preretrieval.query.transformation.TranslationQueryTransformer;
-import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
 public class AiConfig {
 
-    @Bean
+    /*@Bean
     public ChatClient chatClient(
             ChatClient.Builder chatClientBuilder,
             VectorStore vectorStore) {
@@ -35,7 +32,7 @@ public class AiConfig {
                                 .numberOfQueries(5)
                                 .includeOriginal(false)
                                 .build())
-               /* .queryTransformers(List.of(
+               *//* .queryTransformers(List.of(
                         RewriteQueryTransformer.builder()
                                 // Use the clean builder here!
                                 .chatClientBuilder(cleanBuilder)
@@ -45,12 +42,25 @@ public class AiConfig {
                                 .chatClientBuilder(cleanBuilder)
                                 .targetLanguage("English")
                                 .build()
-                ))*/
+                ))*//*
                 .build();
 
         // 2. This is the "Primary" client used by your Service
         return chatClientBuilder
                 .defaultAdvisors(advisor)
+                .build();
+    }*/
+
+    @Bean
+    ChatClient chatClient(
+            ChatClient.Builder chatClientBuilder,
+            VectorStore vectorStore,
+            ChatMemory chatMemory) {
+        return chatClientBuilder
+                .defaultAdvisors(
+                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
+                        QuestionAnswerAdvisor.builder(vectorStore)
+                                .searchRequest(SearchRequest.builder().build()).build())
                 .build();
     }
 }

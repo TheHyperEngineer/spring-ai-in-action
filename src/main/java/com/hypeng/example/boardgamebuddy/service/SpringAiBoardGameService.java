@@ -8,7 +8,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import static com.hypeng.example.boardgamebuddy.utils.UtilityService.normalizeGameTitle;
-import static org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever.FILTER_EXPRESSION;
+import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
+
+import static org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor.FILTER_EXPRESSION;
 
 @Service
 public class SpringAiBoardGameService implements BoardGameService {
@@ -22,25 +24,22 @@ public class SpringAiBoardGameService implements BoardGameService {
     @Value("classpath:/promptTemplates/systemPromptTemplate.st")
     Resource promptTemplate;
 
+
     @Override
-    public Answer askQuestion(Question question) {
-        // Prepare the filter for the specific game
-        var gameFilter = String.format(
+    public Answer askQuestion(Question question, String conversationId) {
+        var gameNameMatch = String.format(
                 "gameTitle == '%s'",
                 normalizeGameTitle(question.gameTitle()));
 
-        // The chatClient already has the RetrievalAugmentationAdvisor (with translation)
-        // as a default advisor from AiConfig.
-        var aiResponse = chatClient.prompt()
+        return chatClient.prompt()
                 .system(systemSpec -> systemSpec
                         .text(promptTemplate)
                         .param("gameTitle", question.gameTitle()))
                 .user(question.question())
-                .advisors(advisorSpec ->
-                        advisorSpec.param(FILTER_EXPRESSION, gameFilter))
+                .advisors(advisorSpec -> advisorSpec
+                        .param(FILTER_EXPRESSION, gameNameMatch)
+                        .param(CONVERSATION_ID, conversationId))
                 .call()
-                .content();
-
-        return new Answer(question.gameTitle(), aiResponse);
+                .entity(Answer.class);
     }
 }
