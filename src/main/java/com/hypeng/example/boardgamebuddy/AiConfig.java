@@ -1,5 +1,6 @@
 package com.hypeng.example.boardgamebuddy;
 
+import com.hypeng.example.boardgamebuddy.gamedata.GameTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
@@ -19,15 +20,14 @@ public class AiConfig {
   
   @Bean
   ChatClient chatClient(ChatClient.Builder chatClientBuilder,
-                        VectorStore vectorStore,
-                        GameTools gameTools) {
+                        VectorStore vectorStore) {
     return chatClientBuilder
         .defaultAdvisors(
             QuestionAnswerAdvisor.builder(vectorStore)
                 .searchRequest(SearchRequest.builder().build()).build(),
             MessageChatMemoryAdvisor.builder(
                 MessageWindowChatMemory.builder().build()).build())
-        .defaultTools(gameTools)
+        .defaultToolNames("gameTools")
         .build();
   }
   

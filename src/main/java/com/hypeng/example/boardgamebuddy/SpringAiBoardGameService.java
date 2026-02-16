@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
+
 import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 import static org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor.FILTER_EXPRESSION;
 
@@ -18,7 +20,7 @@ public class SpringAiBoardGameService implements BoardGameService {
   }
 
   @Value("classpath:/promptTemplates/systemPromptTemplate.st")
-  Resource promptTemplate;
+  private Resource promptTemplate;
 
   @Override
   public Answer askQuestion(Question question, String conversationId) {
@@ -38,8 +40,51 @@ public class SpringAiBoardGameService implements BoardGameService {
         .entity(Answer.class);
   }
 
-  private String normalizeGameTitle(String in) {
-    return in.toLowerCase().replace(' ', '_');
+  private String normalizeGameTitle(String rawTitle) {
+    if (rawTitle == null) {
+      return "";
+    }
+
+    String title = rawTitle.trim();
+    if (title.isEmpty()) {
+      return "";
+    }
+
+    // If the input looks like a filename, remove its extension
+    title = removeFileExtension(title);
+
+    // Normalize unicode and remove diacritics
+    String normalized = Normalizer.normalize(title, Normalizer.Form.NFKD)
+            .replaceAll("\\p{M}", ""); // remove combining marks
+
+    // Lowercase
+    normalized = normalized.toLowerCase();
+
+    // Replace any sequence of non-alphanumeric characters with a single hyphen
+    normalized = normalized.replaceAll("[^a-z0-9]+", "-");
+
+    // Trim leading/trailing hyphens
+    normalized = normalized.replaceAll("^-+|-+$", "");
+
+    return normalized;
+  }
+
+  private  String removeFileExtension(String filename) {
+    if (filename == null || filename.isBlank()) {
+      return "";
+    }
+    // Keep only the file name portion if a path was provided
+    String name = filename.replace('\\', '/');
+    int lastSlash = name.lastIndexOf('/');
+    if (lastSlash >= 0) {
+      name = name.substring(lastSlash + 1);
+    }
+
+    int lastDot = name.lastIndexOf('.');
+    if (lastDot <= 0) { // dot at index 0 is a hidden file on Unix, keep it
+      return name;
+    }
+    return name.substring(0, lastDot);
   }
 
 }
