@@ -14,6 +14,18 @@ spring:
       qdrant:
         initialize-schema: true
         collection-name: board-game-buddy
+    mcp:
+      client:
+        stdio:
+          connections:
+            filesystem:
+              command: 'npx'
+              args:
+                - '-y'
+                - '@modelcontextprotocol/server-filesystem'
+                - '/Users/habuma/mcp-playground'
+        toolcallback:
+          enabled: true
 
 # Configurations for Springdoc OpenAPI
 springdoc:
