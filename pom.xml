@@ -14,9 +14,6 @@
         <java.version>25</java.version>
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
-<!--        <spring-ai.version>2.0.0-M2</spring-ai.version>
-        <springdoc-openapi-starter-webmvc-ui.version>3.0.1</springdoc-openapi-starter-webmvc-ui.version>
-        <wiremock-spring-boot.version>4.1.0</wiremock-spring-boot.version>-->
     </properties>
     <modules>
         <module>chaining</module>
@@ -24,7 +21,7 @@
         <module>routing-with-memory</module>
         <module>parallelization</module>
         <module>embabel-games-agent</module>
-
+        <module>cyberjar</module>
     </modules>
 
 </project>
