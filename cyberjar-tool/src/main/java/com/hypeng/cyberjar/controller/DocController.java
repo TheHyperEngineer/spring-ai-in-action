@@ -5,11 +5,9 @@ import com.embabel.agent.api.common.autonomy.ProcessExecutionException;
 import com.embabel.agent.core.ProcessOptions;
 import com.hypeng.cyberjar.document.MarkdownResult;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+//@RestController
 public class DocController {
 
     private final Autonomy autonomy;
@@ -18,7 +16,7 @@ public class DocController {
         this.autonomy = autonomy;
     }
 
-    @PostMapping("/convert")
+    //    @PostMapping("/convert")
     public ResponseEntity<MarkdownResult> convert(@RequestBody String url) throws ProcessExecutionException {
 
         // Optional: customize verbosity, budget, planner, etc.
