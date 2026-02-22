@@ -24,6 +24,7 @@
         <module>cyberjar</module>
         <module>cyberjar-web</module>
         <module>cyberjar-tool</module>
+        <module>cyberjar-mcp-tool</module>
     </modules>
 
 </project>
