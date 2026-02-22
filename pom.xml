@@ -23,6 +23,7 @@
         <module>embabel-games-agent</module>
         <module>cyberjar</module>
         <module>cyberjar-web</module>
+        <module>cyberjar-tool</module>
     </modules>
 
 </project>
