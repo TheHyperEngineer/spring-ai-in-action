@@ -22,6 +22,7 @@
         <module>parallelization</module>
         <module>embabel-games-agent</module>
         <module>cyberjar</module>
+        <module>cyberjar-web</module>
     </modules>
 
 </project>
