@@ -1,0 +1,20 @@
+Here is a prompt you can use (either with me or any other AI tool) to apply that exact same "amplification" effect to your own tasks.
+
+The "LinkedIn Amplifier" Prompt Template
+Copy and paste the following prompt, filling in the bracketed information with your actual task:
+
+Prompt:
+"Act as an expert resume writer and personal branding specialist. I am going to give you a very simple, everyday task that I performed at work. Your goal is to rewrite this task for my LinkedIn profile by significantly 'amplifying' it.
+
+Please elevate the task using highly professional, strategic corporate jargon. Use strong action verbs, imply a larger systemic impact, and focus on cross-functional value or optimization. Make it sound like a high-level strategic initiative while keeping the core, literal truth intact.
+
+Here is what I actually did: [INSERT YOUR REAL TASK HERE, e.g., 'I ordered pizza for the team lunch']."
+
+How it looks in action
+If you use the prompt above with the pizza example, you will get a transformation like this:
+
+Reality: I ordered pizza for the team lunch.
+
+LinkedIn Amplified: Spearheaded cross-functional team-building initiatives by coordinating and executing catering logistics, directly boosting department morale and optimizing afternoon productivity.
+
+Would you like to give me a real task you performed recently so I can amplify it for you right now?
